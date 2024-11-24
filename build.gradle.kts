@@ -17,31 +17,28 @@ buildscript {
 plugins {
     java
     kotlin("jvm") version "1.9.25"
-    id("org.jetbrains.intellij") version "1.17.4"
+//    id("org.jetbrains.intellij") version "1.17.4"
+    id("org.jetbrains.intellij.platform") version "2.1.0"
+    id("org.jetbrains.intellij.platform.migration") version "2.1.0"
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
 }
 
-intellij {
-    version.set("2023.2.8") // IntelliJ IDEA版本
-    type.set("IU") // 企业版
-    plugins.set(
-        listOf(
-            "java",
-            "Kotlin",
-            "Spring",
-            "DatabaseTools",
-            "com.intellij.spring.boot"
-        )
-    ) // Bundled plugin dependencies
-    pluginName.set("MybatisX")
-    sandboxDir.set("${rootProject.rootDir}/idea-sandbox")
-    updateSinceUntilBuild.set(false)
-    downloadSources.set(true)
+intellijPlatform {
+
+    pluginConfiguration {
+        name = "MybatisX"
+    }
+    sandboxContainer.set(project.layout.projectDirectory.dir("${rootProject.rootDir}/idea-sandbox"))
 }
+
+//intellij {
+//    updateSinceUntilBuild.set(false)
+//    downloadSources.set(true)
+//}
 
 group = "com.baomidou.plugin.idea.mybatisx"
 version = "1.6.4"
@@ -49,31 +46,40 @@ version = "1.6.4"
 repositories {
     mavenLocal()
     mavenCentral()
+    intellijPlatform{
+        defaultRepositories()
+
+    }
 }
 
 dependencies {
+    intellijPlatform{
+        create("IU", "2024.3")
+        bundledPlugins(listOf("com.intellij.java", "org.jetbrains.kotlin", "com.intellij.database", "com.intellij.spring.boot"))
+        instrumentationTools()
+    }
     implementation("com.softwareloop:mybatis-generator-lombok-plugin:1.0")
     implementation("uk.com.robust-it:cloning:1.9.2")
     implementation("org.mybatis.generator:mybatis-generator-core:1.4.0")
     implementation("org.freemarker:freemarker:2.3.30")
     implementation("com.itranswarp:compiler:1.0")
     testImplementation("junit:junit:4.13.1")
-    testImplementation("commons-io:commons-io:2.14.0")
-    compileOnly("org.projectlombok:lombok:1.18.20")
-    annotationProcessor("org.projectlombok:lombok:1.18.20")
+    testImplementation("commons-io:commons-io:2.18.0")
+    compileOnly("org.projectlombok:lombok:1.18.30")
+    annotationProcessor("org.projectlombok:lombok:1.18.30")
 }
 
 tasks {
     withType<JavaCompile> {
         options.encoding = "UTF-8"
-        sourceCompatibility = "17"
-        targetCompatibility = "17"
+        sourceCompatibility = "21"
+        targetCompatibility = "21"
     }
-    withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-        kotlinOptions {
-            jvmTarget = "17"
-        }
-    }
+//    withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+//        kotlinOptions {
+//            jvmTarget = "21"
+//        }
+//    }
 //    patchPluginXml {
 //        sinceBuild.set("232")
 //        untilBuild.set("243.*")

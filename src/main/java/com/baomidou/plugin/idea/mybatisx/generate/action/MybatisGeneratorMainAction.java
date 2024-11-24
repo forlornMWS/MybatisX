@@ -13,6 +13,7 @@ import com.intellij.database.psi.DbTable;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.LangDataKeys;
+import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.Messages;
 import com.intellij.openapi.vfs.VirtualFileManager;
@@ -107,26 +108,35 @@ public class MybatisGeneratorMainAction extends AnAction {
 
     @Override
     public void update(@NotNull AnActionEvent e) {
-        Boolean visible = null;
-        PsiElement[] psiElements = e.getData(LangDataKeys.PSI_ELEMENT_ARRAY);
-        if (psiElements == null || psiElements.length == 0) {
-            visible = false;
-        }
-        boolean existsDbTools = PluginExistsUtils.existsDbTools();
-        if (!existsDbTools) {
-            visible = false;
-        }
-        if (visible == null) {
-            if (!Stream.of(psiElements).allMatch(item -> CheckMatch.checkAssignableFrom(item.getClass()))) {
+        // 使用 invokeLater 确保 UI 更新在 EDT 上执行
+        ApplicationManager.getApplication().invokeLater(() -> {
+            // 获取 PSI 元素数据
+            PsiElement[] psiElements = e.getData(LangDataKeys.PSI_ELEMENT_ARRAY);
+            boolean existsDbTools = PluginExistsUtils.existsDbTools();
+
+            // 判断菜单是否可见
+            boolean visible = true;
+
+            // 如果 PSI 元素为空，则设置不可见
+            if (psiElements == null || psiElements.length == 0) {
                 visible = false;
             }
-        }
-        // 未安装Database Tools插件时，不展示菜单
-        if (visible != null) {
-            e.getPresentation().setEnabledAndVisible(visible);
-        }
 
+            // 检查是否安装了 Database Tools 插件
+            if (!existsDbTools) {
+                visible = false;
+            }
+
+            // 判断 PSI 元素是否都符合条件
+            if (visible && !Stream.of(psiElements).allMatch(item -> CheckMatch.checkAssignableFrom(item.getClass()))) {
+                visible = false;
+            }
+
+            // 更新菜单的启用与可见状态
+            e.getPresentation().setEnabledAndVisible(visible);
+        });
     }
+
 
     private static class CheckMatch {
         public static boolean checkAssignableFrom(Class<? extends PsiElement> aClass) {
