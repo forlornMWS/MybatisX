@@ -141,6 +141,7 @@ public class PsiColumnReferenceSetResolver {
         return Optional.empty();
     }
 
+    @SuppressWarnings({"deprecation", "removal"})
     public Optional<DbElement> findColumns(DasTable dasTable) {
         String firstText = Iterables.getFirst(texts, null);
         DbPsiFacade dbPsiFacade = DbPsiFacade.getInstance(project);

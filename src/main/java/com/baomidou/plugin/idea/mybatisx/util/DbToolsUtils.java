@@ -106,6 +106,7 @@ public class DbToolsUtils {
      * @param databaseType the database type
      * @return the intellij column info
      */
+    @SuppressWarnings({"deprecation", "removal"})
     @NotNull
     public static IntellijColumnInfo convertColumnToIntellijColumnInfo(DasColumn column, String databaseType) {
         IntellijColumnInfo columnInfo = new IntellijColumnInfo();

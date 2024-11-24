@@ -118,6 +118,7 @@ public class ContextPsiColumnReference extends PsiReferenceBase<XmlAttributeValu
     }
 
     @NotNull
+    @SuppressWarnings({"deprecation", "removal"})
     private List<DbElement> getDbElements(String tableName, DbPsiFacade dbPsiFacade) {
         for (DbDataSource dataSource : dbPsiFacade.getDataSources()) {
             JBIterable<? extends DasNamespace> schemas = DasUtil.getSchemas(dataSource);
