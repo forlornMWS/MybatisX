@@ -6,7 +6,7 @@ import com.intellij.psi.PsiDocumentManager;
 import com.intellij.psi.PsiImportStatement;
 import com.intellij.psi.PsiJavaFile;
 import com.intellij.psi.PsiPackageStatement;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.HashSet;
 import java.util.List;

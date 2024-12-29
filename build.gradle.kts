@@ -17,9 +17,7 @@ buildscript {
 plugins {
     java
     kotlin("jvm") version "1.9.25"
-//    id("org.jetbrains.intellij") version "1.17.4"
     id("org.jetbrains.intellij.platform") version "2.1.0"
-    id("org.jetbrains.intellij.platform.migration") version "2.1.0"
 }
 
 java {
@@ -34,11 +32,6 @@ intellijPlatform {
     }
     sandboxContainer.set(project.layout.projectDirectory.dir("${rootProject.rootDir}/idea-sandbox"))
 }
-
-//intellij {
-//    updateSinceUntilBuild.set(false)
-//    downloadSources.set(true)
-//}
 
 group = "com.baomidou.plugin.idea.mybatisx"
 version = "1.6.4"
@@ -75,13 +68,4 @@ tasks {
         sourceCompatibility = "21"
         targetCompatibility = "21"
     }
-//    withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-//        kotlinOptions {
-//            jvmTarget = "21"
-//        }
-//    }
-//    patchPluginXml {
-//        sinceBuild.set("232")
-//        untilBuild.set("243.*")
-//    }
 }

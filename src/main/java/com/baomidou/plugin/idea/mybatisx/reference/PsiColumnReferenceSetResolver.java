@@ -8,6 +8,7 @@ import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.intellij.database.model.DasColumn;
 import com.intellij.database.model.DasNamespace;
+import com.intellij.database.model.DasObject;
 import com.intellij.database.model.DasTable;
 import com.intellij.database.model.ObjectKind;
 import com.intellij.database.psi.DbDataSource;
@@ -19,6 +20,7 @@ import com.intellij.psi.PsiClass;
 import com.intellij.psi.xml.XmlAttributeValue;
 import com.intellij.util.containers.JBIterable;
 import lombok.Getter;
+import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -35,25 +37,12 @@ public class PsiColumnReferenceSetResolver {
 
     private static final Splitter SPLITTER = Splitter.on(MybatisConstants.DOT_SEPARATOR);
 
-    /**
-     * The Project.
-     * -- GETTER --
-     *  Gets project.
-     *
-     * @return the project
-
-     */
+    @Setter
     @Getter
     protected Project project;
 
-    /**
-     * The Element.
-     * -- GETTER --
-     *  Gets element.
-     *
-     * @return the element
 
-     */
+    @Setter
     @Getter
     protected XmlAttributeValue element;
 
@@ -93,24 +82,6 @@ public class PsiColumnReferenceSetResolver {
     }
 
 
-    /**
-     * Sets element.
-     *
-     * @param element the element
-     */
-    public void setElement(XmlAttributeValue element) {
-        this.element = element;
-    }
-
-    /**
-     * Sets project.
-     *
-     * @param project the project
-     */
-    public void setProject(Project project) {
-        this.project = project;
-    }
-
     @NotNull
     public String getText() {
         return getElement().getValue();
@@ -141,16 +112,22 @@ public class PsiColumnReferenceSetResolver {
         return Optional.empty();
     }
 
-    @SuppressWarnings({"deprecation", "removal"})
     public Optional<DbElement> findColumns(DasTable dasTable) {
         String firstText = Iterables.getFirst(texts, null);
-        DbPsiFacade dbPsiFacade = DbPsiFacade.getInstance(project);
         DasColumn child = DasUtil.findChild(dasTable, DasColumn.class, ObjectKind.COLUMN, firstText);
         if (child != null) {
-            DbElement element = dbPsiFacade.findElement(child);
-            return Optional.ofNullable(element);
+            // 从 child 获取它的父级数据源
+            DasObject current = child;
+            while (current != null && !(current instanceof DbDataSource)) {
+                current = current.getDasParent();
+            }
+
+            if (current != null) {
+                DbDataSource dataSource = (DbDataSource) current;
+                DbElement element = dataSource.findElement(child);
+                return Optional.of(element);
+            }
         }
         return Optional.empty();
     }
-
 }

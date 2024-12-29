@@ -2,7 +2,6 @@ package com.baomidou.plugin.idea.mybatisx.provider;
 
 import com.baomidou.plugin.idea.mybatisx.annotation.Annotation;
 import com.baomidou.plugin.idea.mybatisx.dom.model.Mapper;
-import com.baomidou.plugin.idea.mybatisx.util.Icons;
 import com.baomidou.plugin.idea.mybatisx.util.JavaUtils;
 import com.baomidou.plugin.idea.mybatisx.util.MapperUtils;
 import com.intellij.codeInsight.daemon.RelatedItemLineMarkerInfo;
@@ -17,7 +16,7 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiField;
 import com.intellij.psi.PsiType;
 import com.intellij.psi.impl.source.PsiClassReferenceType;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;

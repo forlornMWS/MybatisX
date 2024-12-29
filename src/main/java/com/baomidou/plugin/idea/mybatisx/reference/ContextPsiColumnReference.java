@@ -20,6 +20,7 @@ import com.intellij.psi.PsiReferenceBase;
 import com.intellij.psi.xml.XmlAttributeValue;
 import com.intellij.util.containers.JBIterable;
 import lombok.Getter;
+import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -35,24 +36,11 @@ import java.util.Optional;
  */
 public class ContextPsiColumnReference extends PsiReferenceBase<XmlAttributeValue> {
 
-    /**
-     * The Resolver.
-     * -- GETTER --
-     *  Gets resolver.
-     *
-     * @return the resolver
-
-     */
+    @Setter
     @Getter
     protected PsiColumnReferenceSetResolver resolver;
-    /**
-     * The Index.
-     * -- GETTER --
-     *  Gets index.
-     *
-     * @return the index
 
-     */
+    @Setter
     @Getter
     protected int index;
     private final PsiClass mapperClass;
@@ -118,7 +106,6 @@ public class ContextPsiColumnReference extends PsiReferenceBase<XmlAttributeValu
     }
 
     @NotNull
-    @SuppressWarnings({"deprecation", "removal"})
     private List<DbElement> getDbElements(String tableName, DbPsiFacade dbPsiFacade) {
         for (DbDataSource dataSource : dbPsiFacade.getDataSources()) {
             JBIterable<? extends DasNamespace> schemas = DasUtil.getSchemas(dataSource);
@@ -128,8 +115,7 @@ public class ContextPsiColumnReference extends PsiReferenceBase<XmlAttributeValu
                     List<DbElement> dbElementList = new LinkedList<>();
                     JBIterable<? extends DasColumn> columns = DasUtil.getColumns(dasTable);
                     for (DasColumn column : columns) {
-
-                        DbElement element = dbPsiFacade.findElement(column);
+                        DbElement element = dataSource.findElement(column);
 
                         dbElementList.add(element);
                     }
@@ -140,22 +126,4 @@ public class ContextPsiColumnReference extends PsiReferenceBase<XmlAttributeValu
         return Collections.emptyList();
     }
 
-
-    /**
-     * Sets resolver.
-     *
-     * @param resolver the resolver
-     */
-    public void setResolver(PsiColumnReferenceSetResolver resolver) {
-        this.resolver = resolver;
-    }
-
-    /**
-     * Sets index.
-     *
-     * @param index the index
-     */
-    public void setIndex(int index) {
-        this.index = index;
-    }
 }
