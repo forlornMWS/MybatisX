@@ -166,6 +166,20 @@
         <!-- 使用 Alt+Delete 删除方法时, 也删掉对应的标签 -->
         <refactoring.safeDeleteProcessor id="MapperMethodSafeDeleteProcessor"
             implementation="com.baomidou.plugin.idea.mybatisx.system.refactoring.MapperMethodSafeDeleteProcessor"/>
+
+        <!-- Add your extensions here -->
+        <consoleFilterProvider implementation="com.baomidou.plugin.idea.mybatisx.log.MyBatisLogConsoleFilterProvider"/>
+        <executor implementation="com.baomidou.plugin.idea.mybatisx.log.gui.MyBatisLogExecutor"
+                  id="MyBatisLogExecutor"/>
+
     </extensions>
+
+    <actions>
+        <action id="com.baomidou.plugin.idea.mybatisx.log.action.MyBatisLogAction" class="com.baomidou.plugin.idea.mybatisx.log.action.MyBatisLogAction"
+                text="MyBatis Log" description="MyBatis log" icon="/icons/ibatis.svg">
+<!--            <add-to-group group-id="ToolsMenu" anchor="last"/>-->
+            <add-to-group group-id="ConsoleEditorPopupMenu" anchor="before" relative-to-action="ConsoleView.ClearAll"/>
+        </action>
+    </actions>
 
 </idea-plugin>
