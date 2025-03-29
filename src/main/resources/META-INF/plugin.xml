@@ -1,27 +1,18 @@
-<idea-plugin url="https://gitee.com/baomidou/mybatis-plus" require-restart="false" allow-bundled-update="true">
-    <id>com.baomidou.plugin.idea.mybatisx</id>
-    <name>MyBatisX</name>
-    <vendor email="jobob@qq.com" url="https://gitee.com/baomidou/MybatisX">MybatisX</vendor>
+<idea-plugin url="https://github.com/forlornMWS/MybatisX" require-restart="false" allow-bundled-update="true">
+    <id>com.baomidou.plugin.idea.ext.mybatisx</id>
+    <name>MyBatisX-Ext</name>
+    <vendor email="mwszksnmdys@gmail.com" url="https://github.com/forlornMWS/MybatisX">MybatisX-ext</vendor>
 
     <description><![CDATA[
-          MybatisX plugin
-          Features:
-       <ul>
-          <li>mapper and xml can jump back and forth</li>
-          <li>mybatis.xml,mapper.xml prompt</li>
-          <li>mapper and xml support auto prompt like jpa (reference  MybatisCodeHelperPro)</li>
-          <li>integrate mybatis generator Gui (copy from free mybatis plugin)</li>
-      </ul>
-
-      wechat: wx153666 join the group of mybatisx
+     MybatisX-ext is an enhanced version of MyBatisX, providing additional support for log concatenation and improved SQL debugging.
+    This project is independently maintained and forked from MyBatisX, but it is not affiliated with or endorsed by the official MyBatisX project.
       ]]>
     </description>
 
     <change-notes><![CDATA[
-      <h4>1.4.8</h4>
+      <h4>1.0.0</h4>
       <ul>
-          <li>change style of generate code by templates</li>
-          <li>fixed some bugs</li>
+          <li>add log support based on MybatisX and mybatis-log-plugin-free</li>
       </ul>
        <h4>1.3.6</h4>
       <ul>
@@ -167,7 +158,6 @@
         <refactoring.safeDeleteProcessor id="MapperMethodSafeDeleteProcessor"
             implementation="com.baomidou.plugin.idea.mybatisx.system.refactoring.MapperMethodSafeDeleteProcessor"/>
 
-        <!-- Add your extensions here -->
         <consoleFilterProvider implementation="com.baomidou.plugin.idea.mybatisx.log.MyBatisLogConsoleFilterProvider"/>
         <executor implementation="com.baomidou.plugin.idea.mybatisx.log.gui.MyBatisLogExecutor"
                   id="MyBatisLogExecutor"/>

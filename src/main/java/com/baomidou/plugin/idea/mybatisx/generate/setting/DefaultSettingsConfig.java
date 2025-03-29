@@ -23,7 +23,7 @@ public class DefaultSettingsConfig {
     private static final Logger logger = LoggerFactory.getLogger(DefaultSettingsConfig.class);
 
     private static File getPath(@NotNull String pathParam) throws IOException {
-        @NotNull PluginId id = Objects.requireNonNull(PluginId.findId("com.baomidou.plugin.idea.mybatisx"));
+        @NotNull PluginId id = Objects.requireNonNull(PluginId.findId("com.baomidou.plugin.idea.ext.mybatisx"));
         final ScratchFileService scratchFileService = ScratchFileService.getInstance();
         final ExtensionsRootType extensionsRootType = ExtensionsRootType.getInstance();
         final String path = scratchFileService.getRootPath(extensionsRootType) + "/" + id.getIdString() +

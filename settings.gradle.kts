@@ -1,1 +1,1 @@
-rootProject.name = "MybatisX"
+rootProject.name = "MybatisX-Ext"

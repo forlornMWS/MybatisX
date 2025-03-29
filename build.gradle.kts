@@ -28,13 +28,13 @@ java {
 intellijPlatform {
 
     pluginConfiguration {
-        name = "MybatisX"
+        name = "MybatisX-ext"
     }
     sandboxContainer.set(project.layout.projectDirectory.dir("${rootProject.rootDir}/idea-sandbox"))
 }
 
-group = "com.baomidou.plugin.idea.mybatisx"
-version = "1.6.4"
+group = "com.baomidou.plugin.idea.ext.mybatisx"
+version = "1.0.0"
 
 repositories {
     mavenLocal()
