@@ -8,6 +8,7 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.Disposer;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -16,6 +17,8 @@ import java.util.Objects;
  * @author huangxingguang
  */
 public class MyBatisLogAction extends DumbAwareAction {
+
+    private static final List<String> SUPPORTED_TOOL_WINDOW_IDS = List.of("Services", "Run", "Debug");
 
     @Override
     public void actionPerformed(@NotNull AnActionEvent e) {
@@ -29,6 +32,10 @@ public class MyBatisLogAction extends DumbAwareAction {
         }
 
         String toolWindowId = LogUtil.getToolWindowId(project);
+
+        if(!SUPPORTED_TOOL_WINDOW_IDS.contains(toolWindowId)) {
+            return;
+        }
 
         if ("EditorPopup".equals(e.getPlace())) {
             final MyBatisLogManager manager = MyBatisLogManager.getInstance(project, toolWindowId);
