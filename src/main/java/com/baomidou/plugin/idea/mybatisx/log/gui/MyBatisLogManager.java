@@ -366,7 +366,9 @@ public class MyBatisLogManager implements Disposable {
 
         stop();
         String toolWindowId = LogUtil.getToolWindowId(project);
-        RunContentManager.getInstance(project).removeRunContent(MyBatisLogExecutor.getInstance(toolWindowId), descriptor);
+        if(!"Services".equals(toolWindowId)) {
+            RunContentManager.getInstance(project).removeRunContent(MyBatisLogExecutor.getInstance(toolWindowId), descriptor);
+        }
 
     }
 
