@@ -10,14 +10,14 @@ buildscript {
     }
     dependencies {
         classpath("org.jetbrains.intellij.plugins:gradle-intellij-plugin:0.7.2")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.32")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.25")
     }
 }
 
 plugins {
     java
     kotlin("jvm") version "1.9.25"
-    id("org.jetbrains.intellij.platform") version "2.1.0"
+    id("org.jetbrains.intellij.platform") version "2.5.0"
 }
 
 java {
@@ -34,7 +34,7 @@ intellijPlatform {
 }
 
 group = "com.baomidou.plugin.idea.ext.mybatisx"
-version = "1.0.0"
+version = "1.0.1"
 
 repositories {
     mavenLocal()
@@ -47,9 +47,8 @@ repositories {
 
 dependencies {
     intellijPlatform{
-        create("IU", "2024.3")
+        create("IU", "2025.1")
         bundledPlugins(listOf("com.intellij.java", "org.jetbrains.kotlin", "com.intellij.database", "com.intellij.spring.boot"))
-        instrumentationTools()
     }
     implementation("com.softwareloop:mybatis-generator-lombok-plugin:1.0")
     implementation("uk.com.robust-it:cloning:1.9.2")
@@ -67,5 +66,9 @@ tasks {
         options.encoding = "UTF-8"
         sourceCompatibility = "21"
         targetCompatibility = "21"
+    }
+
+    patchPluginXml {
+        sinceBuild.set("232")
     }
 }
