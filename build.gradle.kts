@@ -34,7 +34,7 @@ intellijPlatform {
 }
 
 group = "com.baomidou.plugin.idea.ext.mybatisx"
-version = "1.0.1"
+version = "1.0.2"
 
 repositories {
     mavenLocal()
