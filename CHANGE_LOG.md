@@ -1,3 +1,6 @@
+# 1.0.3
+- Fixed field type generation errors caused by deprecated API removal
+
 # 1.0.2
 - Added reference navigation support for resultMap and sql tags in XML files
 

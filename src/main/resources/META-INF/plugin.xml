@@ -10,9 +10,9 @@
     </description>
 
     <change-notes><![CDATA[
-      <h4>1.0.2</h4>
+      <h4>1.0.3</h4>
       <ul>
-          <li>Added reference navigation support for resultMap and sql tags in XML files</li>
+          <li>Fixed property generation errors caused by deprecated API removal</li>
       </ul>
       ]]>
     </change-notes>
